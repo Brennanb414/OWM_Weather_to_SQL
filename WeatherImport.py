@@ -15,7 +15,7 @@ owm_api_key = credentials.OWM_API['key']
 #owm city id
 city_id = '4335045'
 
-url = 'http://api.openweathermap.org/data/2.5/weather?id='+new_orleans_id+'&units=imperial&APPID='+owm_api_key
+url = 'http://api.openweathermap.org/data/2.5/weather?id='+city_id+'&units=imperial&APPID='+owm_api_key
 
 r = requests.post(url,'')
 
