@@ -12,14 +12,13 @@ import credentials
 
 owm_api_key = credentials.OWM_API['key']
 
-#owm city id
 city_id = '4335045'
 
 url = 'http://api.openweathermap.org/data/2.5/weather?id='+city_id+'&units=imperial&APPID='+owm_api_key
 
 r = requests.post(url,'')
 
-#load the json data returned from the get
+#convert json data to dict
 json_data = json.loads(r.text)
 
 formatted_data = {}
@@ -37,9 +36,11 @@ for entry in json_data:
 	else:
 		formatted_data.update({str(entry):json_data[entry]})
 
-formatted_data['dt'] = datetime.datetime.fromtimestamp(formatted_data['dt'])
-formatted_data['sysSunrise'] = datetime.datetime.fromtimestamp(formatted_data['sysSunrise'])
-formatted_data['sysSunset'] = datetime.datetime.fromtimestamp(formatted_data['sysSunset'])
+formatted_data['dt'] = datetime.datetime.utcfromtimestamp(formatted_data['dt'])
+formatted_data['sysSunrise'] = datetime.datetime.utcfromtimestamp(formatted_data['sysSunrise'])
+formatted_data['sysSunset'] = datetime.datetime.utcfromtimestamp(formatted_data['sysSunset'])
+
+print("data collected: " + str(formatted_data))
 
 data_to_insert = {}
 
@@ -49,6 +50,7 @@ for entry in fields_to_keep:
 	#if the field is one we want to keep and is in formatted_data then we want to insert it into the sql db
 	if entry in formatted_data:
 		data_to_insert.update({entry:formatted_data[entry]})
+	#if the field isn't in formatted_data we want to set it to null in prep for SQL insert
 	else:
 		data_to_insert.update({entry:""})
 		
