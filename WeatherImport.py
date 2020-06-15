@@ -10,7 +10,7 @@ sys.path.append(os.path.join('..'))
 import credentials
 
 
-owm_api_key = credentials.OWM_API['key']
+owm_api_key = credentials.OWM['key']
 
 city_id = '4335045'
 
@@ -68,10 +68,10 @@ data_to_insert['cityName'] = data_to_insert.pop('name')
 
 
 driver= '{SQL Server}'
-server = credentials.BW_SQL['server']
-database = credentials.BW_SQL['database']
-username = credentials.BW_SQL['username']
-password = credentials.BW_SQL['password']
+server = credentials.SQL['server']
+database = credentials.SQL['database']
+username = credentials.SQL['username']
+password = credentials.SQL['password']
 cnxn = pyodbc.connect('DRIVER='+driver+';PORT=1433;SERVER='+server+';PORT=1443;DATABASE='+database+';UID='+username+';PWD='+password)
 cnxn.autocommit = True
 cur = cnxn.cursor()
