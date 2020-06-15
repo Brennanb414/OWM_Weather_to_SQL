@@ -16,6 +16,6 @@ SQL = {
 }
 ```
 
-# Room for improvements:
+# Improvement Ideas:
 -Query the table we are inserting to to get the current fields it has, then only look for those fields in the flattened record received from OWM. This would replace the "fields_to_keep" list.
 -Under the "renaming key values" section the API names vs SQL column names mapping could be done much cleaner
